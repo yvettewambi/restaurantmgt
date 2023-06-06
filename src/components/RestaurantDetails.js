@@ -1,19 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-function RestaurantDetails(props) {
-  const { name, address, cuisine } = props;
+const RestaurantDetails = ({ match }) => {
+  const [restaurant, setRestaurant] = useState(null);
+
+  useEffect(() => {
+    const fetchRestaurant = async () => {
+      try {
+        const res = await axios.get(`/api/restaurants/${match.params.id}`);
+        setRestaurant(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchRestaurant();
+  }, [match.params.id]);
+
+  if (!restaurant) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
-      <h2>{name}</h2>
-      <p>
-        <strong>Address:</strong> {address}
-      </p>
-      <p>
-        <strong>Cuisine:</strong> {cuisine}
-      </p>
+      <h2>{restaurant.name}</h2>
+      <img src={`/images/${restaurant.image}`} alt="Restaurant" />
+      <p>{restaurant.description}</p>
     </div>
   );
-}
+};
 
 export default RestaurantDetails;

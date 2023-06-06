@@ -1,86 +1,56 @@
 import React, { useState } from "react";
+import axios from "axios";
 
-function RestaurantForm(props) {
-  const { addRestaurant } = props;
-  const [formData, setFormData] = useState({
-    name: "",
-    cuisine: "",
-    location: "",
-    image: null,
-  });
+const RestaurantForm = ({ addRestaurant }) => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = new FormData();
-    data.append("name", formData.name);
-    data.append("cuisine", formData.cuisine);
-    data.append("location", formData.location);
-    data.append("image", formData.image);
-    addRestaurant(data);
-    setFormData({ name: "", cuisine: "", location: "", image: null });
-  };
-
-  const handleInputChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleFileChange = (e) => {
-    setFormData({ ...formData, image: e.target.files[0] });
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("image", image);
+    try {
+      const res = await axios.post("/api/restaurants", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      addRestaurant(res.data);
+      setName("");
+      setDescription("");
+      setImage(null);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
-    <div>
-      <h1>Add Restaurant</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="cuisine">Cuisine:</label>
-          <input
-            type="text"
-            id="cuisine"
-            name="cuisine"
-            value={formData.cuisine}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="location">Location:</label>
-          <input
-            type="text"
-            id="location"
-            name="location"
-            value={formData.location}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="image">Image:</label>
-          <input
-            type="file"
-            id="image"
-            name="image"
-            onChange={handleFileChange}
-            required
-          />
-        </div>
-        <button type="submit">Add Restaurant</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <label htmlFor="name">Name:</label>
+      <input
+        type="text"
+        id="name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <label htmlFor="description">Description:</label>
+      <textarea
+        id="description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
+      <label htmlFor="image">Image:</label>
+      <input
+        type="file"
+        id="image"
+        onChange={(e) => setImage(e.target.files[0])}
+      />
+      <button type="submit">Add restaurant</button>
+    </form>
   );
-}
+};
 
 export default RestaurantForm;
