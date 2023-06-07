@@ -24,8 +24,8 @@ Before you begin, ensure you have the following installed:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/restaurant-management-app.git
-cd restaurant-management-app
+git clone https://github.com/yvettewambi/restaurantmgt.git
+cd restaurantmgt
 ```
 
 2. Install the required dependencies:
