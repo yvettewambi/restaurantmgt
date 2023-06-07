@@ -27,30 +27,43 @@ const RestaurantForm = ({ addRestaurant }) => {
     }
   };
 
+  // ...
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Name:</label>
-      <input
-        type="text"
-        id="name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <label htmlFor="description">Description:</label>
-      <textarea
-        id="description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <label htmlFor="image">Image:</label>
-      <input
-        type="file"
-        id="image"
-        onChange={(e) => setImage(e.target.files[0])}
-      />
-      <button type="submit">Add restaurant</button>
+    <form onSubmit={handleSubmit} className="mb-3">
+      <div className="form-group">
+        <label htmlFor="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="form-control"
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="description">Description:</label>
+        <textarea
+          id="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="form-control"
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="image">Image:</label>
+        <input
+          type="file"
+          id="image"
+          onChange={(e) => setImage(e.target.files[0])}
+          className="form-control-file"
+        />
+      </div>
+      <button type="submit" className="btn btn-primary">
+        Add restaurant
+      </button>
     </form>
   );
+  // ...
 };
 
 export default RestaurantForm;

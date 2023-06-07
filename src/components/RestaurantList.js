@@ -6,11 +6,14 @@ import { Link } from "react-router-dom";
 function RestaurantList(props) {
   const { restaurants, deleteRestaurant } = props;
 
+  // ...
   return (
     <div>
       <h1>Restaurant List</h1>
-      <Link to="/add">Add Restaurant</Link>
-      <table>
+      <Link to="/add" className="btn btn-primary mb-3">
+        Add Restaurant
+      </Link>
+      <table className="table table-bordered">
         <thead>
           <tr>
             <th>Name</th>
@@ -26,9 +29,22 @@ function RestaurantList(props) {
               <td>{restaurant.cuisine}</td>
               <td>{restaurant.location}</td>
               <td>
-                <Link to={`/details/${restaurant._id}`}>Details</Link>
-                <Link to={`/update/${restaurant._id}`}>Update</Link>
-                <button onClick={() => deleteRestaurant(restaurant._id)}>
+                <Link
+                  to={`/details/${restaurant._id}`}
+                  className="btn btn-info"
+                >
+                  Details
+                </Link>
+                <Link
+                  to={`/update/${restaurant._id}`}
+                  className="btn btn-warning"
+                >
+                  Update
+                </Link>
+                <button
+                  onClick={() => deleteRestaurant(restaurant._id)}
+                  className="btn btn-danger"
+                >
                   Delete
                 </button>
               </td>
@@ -38,6 +54,7 @@ function RestaurantList(props) {
       </table>
     </div>
   );
+  // ...
 }
 
 export default RestaurantList;
