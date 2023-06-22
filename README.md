@@ -52,7 +52,7 @@ npm install
 
 ```text
 MONGODB_URI=mongodb://localhost:27017/restaurant_management
-PORT=5000
+PORT=3000
 ```
 
 4. Start the backend server:
@@ -61,7 +61,7 @@ PORT=5000
 npm start
 ```
 
-The server will start running on `http://localhost:5000`.
+The server will start running on `http://localhost:3000`.
 
 ## Frontend Setup
 
@@ -80,7 +80,7 @@ npm install
 3. Create a `.env` file in the `frontend` directory with the following contents:
 
 ```text
-REACT_APP_API_URL=http://localhost:5000
+REACT_APP_API_URL=http://localhost:3000
 ```
 
 4. Start the frontend development server:

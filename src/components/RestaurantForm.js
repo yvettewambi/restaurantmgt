@@ -3,6 +3,8 @@ import axios from "axios";
 
 const RestaurantForm = ({ addRestaurant }) => {
   const [name, setName] = useState("");
+  const [cuisine, setCuisine] = useState("");
+  const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
 
@@ -10,6 +12,8 @@ const RestaurantForm = ({ addRestaurant }) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("name", name);
+    formData.append("cuisine", cuisine);
+    formData.append("location", location);
     formData.append("description", description);
     formData.append("image", image);
     try {
@@ -20,6 +24,8 @@ const RestaurantForm = ({ addRestaurant }) => {
       });
       addRestaurant(res.data);
       setName("");
+      setCuisine("");
+      setLocation("");
       setDescription("");
       setImage(null);
     } catch (err) {
@@ -30,6 +36,7 @@ const RestaurantForm = ({ addRestaurant }) => {
   // ...
   return (
     <form onSubmit={handleSubmit} className="mb-3">
+      <h1>Restaurant Details</h1>
       <div className="form-group">
         <label htmlFor="name">Name:</label>
         <input
@@ -37,6 +44,26 @@ const RestaurantForm = ({ addRestaurant }) => {
           id="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          className="form-control"
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="cuisine">Cuisine:</label>
+        <input
+          type="text"
+          id="cuisine"
+          value={cuisine}
+          onChange={(e) => setCuisine(e.target.value)}
+          className="form-control"
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="location">Location:</label>
+        <input
+          type="text"
+          id="location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
           className="form-control"
         />
       </div>

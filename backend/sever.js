@@ -5,7 +5,7 @@ const multer = require("multer");
 const path = require("path");
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
 // Set up database connection
 mongoose.connect("mongodb://localhost/restaurants", {
@@ -111,6 +111,6 @@ app.delete("/api/restaurants/:id", async (req, res) => {
 });
 
 // Start the server
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+app.listen(3000, () => {
+  console.log("Server listening on port 3000");
 });
